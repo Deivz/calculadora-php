@@ -1,8 +1,8 @@
 <?php
 
-$operacoes = [
+$arrayOperacoes = [
     'Compra',
     'Venda'
 ];
 
-return $operacoes;
+return $arrayOperacoes;

@@ -1,8 +1,10 @@
 <?php
     require 'topo.php';
-?>
-
-<?php
+    
+    if(isset($_SESSION['dadosUsuario'])){
+        extract($_SESSION['dadosUsuario']);
+    }
+    
     if(isset($_SESSION['mensagens'])):
         foreach ($_SESSION['mensagens'] as $mensagem) :
 ?>
@@ -19,15 +21,15 @@
     <form class="mt-3 container" action="cadastro" method="post">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome completo*</label>
-            <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome completo" maxlength="100" value="<?= $_SESSION['nome']?>">
+            <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome completo" maxlength="100" value="<?= $nome ?>">
         </div>
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF*</label>
-            <input name="cpf" type="text" class="form-control" id="cpf" placeholder="CPF somente números" maxlength="14" value="<?= $_SESSION['cpf'] ?>">
+            <input name="cpf" type="text" class="form-control" id="cpf" placeholder="CPF somente números" maxlength="14" value="<?= $cpf ?>">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email*</label>
-            <input name="email" type="email" class="form-control" id="email" placeholder="nome@exemplo.com" maxlength="50" value="<?= $_SESSION['email'] ?>">
+            <input name="email" type="email" class="form-control" id="email" placeholder="nome@exemplo.com" maxlength="50" value="<?= $email ?>">
         </div>
         <div class="mb-3">
             <label for="senha" class="form-label">Senha*</label>
@@ -43,9 +45,7 @@
 </main>
 
 <?php
-    unset($_SESSION['nome']);
-    unset($_SESSION['cpf']);
-    unset($_SESSION['email']);
+    unset($_SESSION['dadosUsuario']);
     unset($_SESSION['mensagens']);
     unset($_SESSION['erros']);
 ?>

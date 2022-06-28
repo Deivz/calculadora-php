@@ -32,11 +32,11 @@ class Operacoes extends Renderizador implements IRequisicao
         }
 
         $_SESSION['quantidadeOperacoes'] = $quantidadeOperacoes;
-        static $ativos = [];
-        static $operacoes = [];
-        static $quantidades = [];
-        static $precos = [];
-        static $taxas = [];
+        $ativos = [];
+        $operacoes = [];
+        $quantidades = [];
+        $precos = [];
+        $taxas = [];
 
         for ($i = 0; $i < $quantidadeOperacoes; $i++) {
             if(isset($_POST["ativo{$i}"])){
@@ -53,6 +53,7 @@ class Operacoes extends Renderizador implements IRequisicao
         $negociacao = new Negociacao($data, $aplicacao, $ativos, $operacoes, $quantidades, $precos, $taxas);
 
         $req = [
+            'ID' => md5(uniqid(rand(), true)),
             'Usuario' => $_SESSION['cpf'],
             'Data' => $negociacao->data,
             'Aplicacao' => $negociacao->aplicacao,
@@ -64,12 +65,12 @@ class Operacoes extends Renderizador implements IRequisicao
         ];
 
         $dados = "\n" . json_encode($req, JSON_UNESCAPED_UNICODE);
-        $arquivo = fopen('../src/repositorio/negociacoes.txt', 'a');
+        $arquivo = fopen('../src/infraestrutura/persistencia/negociacoes.txt', 'a');
         fwrite($arquivo, $dados);
         fclose($arquivo);
         $_SESSION['sucesso'] = 'Negociação inserida com sucesso!';
-        $removerSessoes = require __DIR__ . '/../helpers/removerSessoes.php';
-        $removerSessoes($quantidadeOperacoes);
+        unset($_SESSION['dadosNegociacao']);
+        unset($_SESSION['quantidadeOperacoes']);
         header('Location: /operacoes');
     }
 }

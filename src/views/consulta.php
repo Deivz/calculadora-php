@@ -19,20 +19,23 @@ require __DIR__ . '/../views/topo.php';
             <tbody>
                 <?php
                     for($i = 0; $i < $_SESSION['quantidadeDados']; $i++):
-                        for($j = 0; $j < count($_SESSION["negociacaoAtivo"][$i]); $j++):
+                        extract($_SESSION['negociacoes'][$i]);
+                        for($j = 0; $j < count($ativos); $j++):
                 ?>
                 <tr>
-                    <td><?= $_SESSION["negociacaoData"][$i] ?></td>
-                    <td><?= $_SESSION["negociacaoAplicacao"][$i] ?></td>
-                    <td><?= $_SESSION["negociacaoOperacao"][$i][$j] ?></td>
-                    <td><?= $_SESSION["negociacaoAtivo"][$i][$j] ?></td>
-                    <td><?= $_SESSION["negociacaoQuantidade"][$i][$j] ?></td>
-                    <td><?= $_SESSION["negociacaoPreco"][$i][$j] ?></td>
-                    <td><?= $_SESSION["negociacaoTaxa"][$i][$j] ?></td>
+                    <td><?= $data ?></td>
+                    <td><?= $aplicacao ?></td>
+                    <td><?= $ativos[$j] ?></td>
+                    <td><?= $operacoes[$j] ?></td>
+                    <td><?= $quantidades[$j] ?></td>
+                    <td><?= 'R$' . str_replace('.', ',', $precos[$j]) ?></td>
+                    <td><?= 'R$' . str_replace('.', ',', $taxas[$j]) ?></td>
                 </tr>
                 <?php
                         endfor;
+                        unset($_SESSION['negociacoes'][$i]);
                     endfor;
+                    
                 ?>
             </tbody>
         </table>

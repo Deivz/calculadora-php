@@ -1,0 +1,7 @@
+{"ID":"Exemplo","Usuario":"Exemplo","Data":"Exemplo","Aplicacao":"Exemplo","Ativos":["Exemplo"],"Operacoes":["Exemplo"],"Quantidades":["Exemplo"],"Precos":["Exemplo"],"Taxas":["Exemplo"]}
+{"ID":"b49b4d55c51c1ae76f5ff12c037f64bc","Usuario":"14163310509","Data":"2022-06-15","Aplicacao":"Ações","Ativos":["PETR4","VIIA3","AZUL4"],"Operacoes":["Compra","Compra","Compra"],"Quantidades":["100","600","100"],"Precos":["23.25","2.22","13.48"],"Taxas":["1.22","1.25","1.11"]}
+{"ID":"176975418f1b7b9fe3cfc6bc477d131a","Usuario":"14163310509","Data":"2022-06-13","Aplicacao":"Ações","Ativos":["MGLU3","VIIA3"],"Operacoes":["Compra","Venda"],"Quantidades":["300","400"],"Precos":["2.15","4.22"],"Taxas":["1.04","1.12"]}
+{"ID":"8c258b00a0bda6420ffd6f510f25c50b","Usuario":"14163310509","Data":"2022-06-27","Aplicacao":"Ações","Ativos":["AZUL4"],"Operacoes":["Venda"],"Quantidades":["100"],"Precos":["22.45"],"Taxas":["2.28"]}
+{"ID":"274ce0696c34189797510f478ca81dac","Usuario":"14163310509","Data":"2022-06-28","Aplicacao":"Ações","Ativos":["USIM5"],"Operacoes":["Compra"],"Quantidades":["200"],"Precos":["9.45"],"Taxas":["2.32"]}
+{"ID":"91adbc1afa419e0554b0a4c9e8c0b87d","Usuario":"14163310509","Data":"2022-06-23","Aplicacao":"Ações","Ativos":["VALE3","CMIG3"],"Operacoes":["Compra","Compra"],"Quantidades":["200","100"],"Precos":["82.3","13.2"],"Taxas":["2.25","2.41"]}
+{"ID":"d87127dbd0af094ef5508b3069757223","Usuario":"14163310509","Data":"2022-06-29","Aplicacao":"Ações","Ativos":["VALE3"],"Operacoes":["Venda"],"Quantidades":["100"],"Precos":["95.60"],"Taxas":["4.55"]}

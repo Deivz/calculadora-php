@@ -31,15 +31,15 @@ class Login extends Renderizador implements IRequisicao
 
     public function buscarUsuario(string $email, string $senha): bool
     {
-        $arquivo = '../src/repositorio/usuarios.txt';
+        $arquivo = '../src/infraestrutura/persistencia/usuarios.txt';
         $stream = fopen($arquivo, 'r');
 
         while(!feof($stream)){
             $usuario = json_decode(fgets($stream));
-            if($email === $usuario->{'email'}){
-                if(password_verify($senha, $usuario->{'senha'})){
-                    $_SESSION['nomeUsuario'] = $usuario->{'nome'};
-                    $_SESSION['cpf'] = $usuario->{'cpf'};
+            if($email === $usuario->email){
+                if(password_verify($senha, $usuario->senha)){
+                    $_SESSION['nomeUsuario'] = $usuario->nome;
+                    $_SESSION['cpf'] = $usuario->cpf;
                     return true;
                 }
                 $_SESSION['mensagem'] = "Senha inválida!";

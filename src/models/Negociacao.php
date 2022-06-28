@@ -20,15 +20,8 @@ class Negociacao implements IValidacao
 
     public function __construct(string $data, string $aplicacao, array $ativos, array $operacoes, array $quantidades, array $precos, array $taxas)
     {
-        $_SESSION['data'] = $data;
-        $_SESSION['aplicacao'] = $aplicacao;
-        for ($i=0; $i < count($ativos); $i++) { 
-            $_SESSION["ativo{$i}"] = $ativos[$i];
-            $_SESSION["operacao{$i}"] = $operacoes[$i];
-            $_SESSION["quantidade{$i}"] = $quantidades[$i];
-            $_SESSION["preco{$i}"] = $precos[$i];
-            $_SESSION["taxa{$i}"] = $taxas[$i];
-        }
+        $_SESSION['dadosNegociacao'] = compact('data', 'aplicacao', 'ativos', 'operacoes', 'quantidades', 'precos', 'taxas'); 
+
         if($this->validarData($data)){
             $this->data = $data;
         }
@@ -147,8 +140,8 @@ class Negociacao implements IValidacao
                 return false;
             }
 
-            $operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
-            if(!in_array($operacao, $operacoes)){
+            $arrayOperacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
+            if(!in_array($operacao, $arrayOperacoes)){
                 $this->mostrarMensagensDeErro('A operação informada não existe no nosso sistema.');
                 return false;
             }

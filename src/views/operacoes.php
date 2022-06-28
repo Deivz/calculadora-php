@@ -1,11 +1,13 @@
 <?php
 require 'topo.php';
 
-$aplicacoes = require __DIR__ . '/../helpers/arrayAplicacoes.php';
-$operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
-?>
+$arrayAplicacoes = require __DIR__ . '/../helpers/arrayAplicacoes.php';
+$arrayOperacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
 
-<?php
+if(isset($_SESSION['dadosNegociacao'])){
+    extract($_SESSION['dadosNegociacao']);
+}
+
     if(isset($_SESSION['sucesso'])):
 ?>
     <div class="container mt-3 alert alert-success">
@@ -14,9 +16,7 @@ $operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
     
 <?php
     endif;
-?>
 
-<?php
     if(isset($_SESSION['mensagens'])):
         foreach ($_SESSION['mensagens'] as $mensagem) :
 ?>
@@ -52,16 +52,16 @@ $operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
         <div class="d-flex justify-content-between">
             <div class="mb-3 me-2 col">
                 <label for="data" class="form-label">Data:</label>
-                <input value="<?= $_SESSION['data'] ?>" name="data" type="date" class="form-control" id="data" maxlength="10">
+                <input value="<?= $data ?>" name="data" type="date" class="form-control" id="data" maxlength="10">
             </div>
             <div class="mb-3 ms-2 col">
                 <label class="form-label">Aplicação:</label>
                 <select name="aplicacao" class="form-select" aria-label="Default select example">
-                    <option hidden selected><?= $_SESSION['aplicacao'] ?></option>
+                    <option hidden selected><?= $aplicacao ?></option>
                     <!-- Código para preencher o campo de aplicações -->
                     <?php
-                    for ($i = 0; $i < count($aplicacoes); $i++) : ?>
-                        <option value="<?= $aplicacoes[$i] ?>"><?= $aplicacoes[$i] ?></option>
+                    for ($i = 0; $i < count($arrayAplicacoes); $i++) : ?>
+                        <option value="<?= $arrayAplicacoes[$i] ?>"><?= $arrayAplicacoes[$i] ?></option>
                     <?php endfor ?>
                     <!-- fim do preenchimento -->
                 </select>
@@ -82,27 +82,27 @@ $operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
             ?>
                 <div class="row">
                     <div class="col">
-                        <input value="<?= $_SESSION["ativo{$i}"] ?>" name="ativo<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="ativo<?= $i ?>" placeholder="Ex: PETR4" maxlength="7">
+                        <input value="<?= $ativos[$i] ?>" name="ativo<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="ativo<?= $i ?>" placeholder="Ex: PETR4" maxlength="7">
                     </div>
                     <div class="col">
                         <select name="operacao<?= $i ?>" class="form-select" aria-label="Default select example">
-                            <option hidden selected><?= $_SESSION["operacao{$i}"] ?></option>
+                            <option hidden selected><?= $operacoes[$i] ?></option>
                             <!-- Código para preencher o campo de aplicações -->
                             <?php
-                            for ($j = 0; $j < count($operacoes); $j++) : ?>
-                                <option value="<?= $operacoes[$j] ?>"><?= $operacoes[$j] ?></option>
+                            for ($j = 0; $j < count($arrayOperacoes); $j++) : ?>
+                                <option value="<?= $arrayOperacoes[$j] ?>"><?= $arrayOperacoes[$j] ?></option>
                             <?php endfor ?>
                             <!-- fim do preenchimento -->
                         </select>
                     </div>
                     <div class="col">
-                        <input value="<?= $_SESSION["quantidade{$i}"] ?>" name="quantidade<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="quantidade<?= $i ?>" placeholder="Ex: 100..." maxlength="7">
+                        <input value="<?= $quantidades[$i] ?>" name="quantidade<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="quantidade<?= $i ?>" placeholder="Ex: 100..." maxlength="7">
                     </div>
                     <div class="col">
-                        <input value="<?= $_SESSION["preco{$i}"] ?>" name="preco<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="preco<?= $i ?>" placeholder="R$" maxlength="7">
+                        <input value="<?= $precos[$i] ?>" name="preco<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="preco<?= $i ?>" placeholder="R$" maxlength="7">
                     </div>
                     <div class="col">
-                        <input value="<?= $_SESSION["taxa{$i}"] ?>" name="taxa<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="taxa<?= $i ?>" placeholder="R$" maxlength="5">
+                        <input value="<?= $taxas[$i] ?>" name="taxa<?= $i ?>" type="text" class="form-control mb-3 me-2 col" id="taxa<?= $i ?>" placeholder="R$" maxlength="5">
                     </div>
                 </div>
             <?php endfor ?>
@@ -115,18 +115,15 @@ $operacoes = require __DIR__ . '/../helpers/arrayOperacoes.php';
             endif;
         ?>
 
-    <?php
-        $removerSessoes = require __DIR__ . '/../helpers/removerSessoes.php';
-
-        $removerSessoes($_SESSION['quantidadeOperacoes']);
-
-        unset($_SESSION['mensagens']);
-        unset($_SESSION['sucesso']);
-        unset($_SESSION['erros']);
-    ?>
     </form>
 </main>
 
 <?php
+unset($_SESSION['dadosNegociacao']);
+unset($_SESSION['quantidadeOperacoes']);
+unset($_SESSION['mensagens']);
+unset($_SESSION['sucesso']);
+unset($_SESSION['erros']);
+
 require 'rodape.php';
 ?>

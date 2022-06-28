@@ -15,7 +15,7 @@ class Cadastro extends Renderizador implements IRequisicao, IValidacao
     public function processarRequisicao(): void
     {
         echo $this->renderizarPagina('/cadastro');
-
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->realizarCadastro($_POST['nome'], $_POST['cpf'], $_POST['email'], $_POST['senha']);
         }
@@ -23,8 +23,8 @@ class Cadastro extends Renderizador implements IRequisicao, IValidacao
 
     private function realizarCadastro($nome, $cpf, $email, $senha)
     {
-        $this->definirSessoes();
-        
+        $_SESSION['dadosUsuario'] = compact('nome', 'cpf', 'email');
+
         if (!$this->verificarDuplicidade($cpf, $email)) {
             $this->verificarValidacao();
         }
@@ -39,26 +39,17 @@ class Cadastro extends Renderizador implements IRequisicao, IValidacao
         ];
 
         $dados = "\n" . json_encode($req, JSON_UNESCAPED_UNICODE);
-        $arquivo = fopen('../src/repositorio/usuarios.txt', 'a');
+        $arquivo = fopen('../src/infraestrutura/persistencia/usuarios.txt', 'a');
         fwrite($arquivo, $dados);
         fclose($arquivo);
         $_SESSION['sucesso'] = 'Cadastro realizado com sucesso!';
-        unset($_SESSION['nome']);
-        unset($_SESSION['cpf']);
-        unset($_SESSION['email']);
+        unset($_SESSION['dadosUsuario']);
         header('Location: /login');
-    }
-
-    private function definirSessoes()
-    {
-        $_SESSION['nome'] = $_POST['nome'];
-        $_SESSION['cpf'] = $_POST['cpf'];
-        $_SESSION['email'] = $_POST['email'];
     }
 
     private function verificarDuplicidade($cpf, $email): bool
     {
-        $arquivo = '../src/repositorio/usuarios.txt';
+        $arquivo = '../src/infraestrutura/persistencia/usuarios.txt';
         $stream = fopen($arquivo, 'r');
         while (!feof($stream)) {
             $usuario = json_decode(fgets($stream));
